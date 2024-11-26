@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego HTML Básico</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        .question {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        .option {
+            display: block;
+            padding: 10px;
+            margin: 5px auto;
+            width: 80%;
+            max-width: 200px;
+            cursor: pointer;
+            background-color: #e7e7e7;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .option:hover {
+            background-color: #ccc;
+        }
+        #score {
+            font-size: 20px;
+            margin-top: 20px;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+
+<div id="quiz">
+    <div id="question" class="question">Pregunta...</div>
+    <button class="option" onclick="checkAnswer(0)" id="option0">Opción 1</button>
+    <button class="option" onclick="checkAnswer(1)" id="option1">Opción 2</button>
+</div>
+<div id="score" style="display: none;">Tu puntaje es: </div>
+
+<script>
+    const questions = [
+        {
+            question: "¿Qué etiqueta se usa para el título principal de una página HTML?",
+            options: ["<h1>", "<title>"],
+            correctAnswer: 0
+        },
+        {
+            question: "¿Qué etiqueta se usa para subtítulos?",
+            options: ["<h2>", "<subtitle>"],
+            correctAnswer: 0
+        },
+        {
+            question: "¿Cuál es la etiqueta correcta para insertar una imagen?",
+            options: ["<img>", "<image>"],
+            correctAnswer: 0
+        },
+        {
+            question: "¿En qué sección va la información de encabezado, como el título de la página?",
+            options: ["<head>", "<header>"],
+            correctAnswer: 0
+        },
+        {
+            question: "¿Qué etiqueta se usa para cerrar una etiqueta abierta?",
+            options: ["Con una barra '/', como </etiqueta>", "Con dos puntos ':', como <:etiqueta>"],
+            correctAnswer: 0
+        },
+        {
+            question: "¿Cuál es la estructura básica de una página HTML?",
+            options: ["<!DOCTYPE html> <html> <head> <body>", "<html> <main> <footer>"],
+            correctAnswer: 0
+        }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+
+    function loadQuestion() {
+        if (currentQuestion < questions.length) {
+            document.getElementById("question").textContent = questions[currentQuestion].question;
+            questions[currentQuestion].options.forEach((option, index) => {
+                document.getElementById("option" + index).textContent = option;
+            });
+        } else {
+            document.getElementById("quiz").style.display = "none";
+            document.getElementById("score").style.display = "block";
+            document.getElementById("score").textContent = Tu puntaje es: ${score} de ${questions.length};
+        }
+    }
+
+    function checkAnswer(selectedOption) {
+        if (selectedOption === questions[currentQuestion].correctAnswer) {
+            score++;
+        }
+        currentQuestion++;
+        loadQuestion();
+    }
+
+    loadQuestion();
+</script>
+
+</body>
+</html>
